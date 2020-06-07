@@ -1,0 +1,16 @@
+{
+  "name": "Csound Doc Search",
+  "description": "Use the context menu to search for highlighted text in online Csound Opcode docs",
+  "version": "1.0",
+  "manifest_version": 2,
+  "permissions": ["contextMenus"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "icons": {
+   "16": "cs-16.png",
+   "48": "cs-48.png",
+  "128": "cs-128.png"
+ }
+}
