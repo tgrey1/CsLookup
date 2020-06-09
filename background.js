@@ -1,5 +1,7 @@
-// Copyright 2019 tgrey1@gmail.com
+// Created 2019 tgrey1@gmail.com
 // 
+// Based off example extension:
+//
 // Copyright 2017 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
