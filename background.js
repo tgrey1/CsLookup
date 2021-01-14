@@ -27,16 +27,25 @@ chrome.runtime.onInstalled.addListener(function() {
             title: 'Csound Reference',
             type: 'normal'
         });
+        chrome.contextMenus.create({
+            id: 'GitLookup',
+            title: 'GitHub Csound Doc Search',
+            type: 'normal',
+            contexts: ['selection']
+        });
 });
 
 chrome.contextMenus.onClicked.addListener(function(item, tab) {
     console.log(item);
     let part = "PartReference";
-    if (item.menuItemId == 'CsLookup'){
+    let baseurl = 'https://csound.com/docs/manual/'
+    if (item.menuItemId == 'CsLookup' ||  item.menuItemId == 'GitLookup') {
         part = item.selectionText;
     }
-    let url = 'https://csound.com/docs/manual/' + part + '.html';
+	if (item.menuItemId == 'GitLookup') {
+		baseurl = 'https://csound.com/manual/'
+    }
+    let url = baseurl + part + '.html';
+
     chrome.tabs.create({url: url, index: tab.index + 1});
 });
-
-
