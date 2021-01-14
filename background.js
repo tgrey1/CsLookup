@@ -10,18 +10,33 @@
 // Add a listener to create the initial context menu items,
 // context menu items only need to be created at runtime.onInstalled
 chrome.runtime.onInstalled.addListener(function() {
-      chrome.contextMenus.create({
-      id: 'CsLookup',
-      title: 'Csound Doc Search',
-      type: 'normal',
-      contexts: ['selection'],
-    });
+        chrome.contextMenus.create({
+            id: 'CsLookup',
+            title: 'Csound Doc Search',
+            type: 'normal',
+            contexts: ['selection']
+        });
+        chrome.contextMenus.create({
+            id: 'CsLookup Reference',
+            title: 'Csound Reference',
+            type: 'normal',
+            contexts: ['selection']
+        });
+        chrome.contextMenus.create({
+            id: 'CsLookup Reference No Selection',
+            title: 'Csound Reference',
+            type: 'normal'
+        });
 });
 
 chrome.contextMenus.onClicked.addListener(function(item, tab) {
-  let url =
-  'https://csound.com/docs/manual/' + item.selectionText + '.html';
-  chrome.tabs.create({url: url, index: tab.index + 1});
+    console.log(item);
+    let part = "PartReference";
+    if (item.menuItemId == 'CsLookup'){
+        part = item.selectionText;
+    }
+    let url = 'https://csound.com/docs/manual/' + part + '.html';
+    chrome.tabs.create({url: url, index: tab.index + 1});
 });
 
 
