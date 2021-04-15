@@ -12,13 +12,19 @@
 chrome.runtime.onInstalled.addListener(function() {
         chrome.contextMenus.create({
             id: 'CsLookup',
-            title: 'Csound Doc Search',
+            title: '* Csound Doc Search',
             type: 'normal',
             contexts: ['selection']
         });
       chrome.contextMenus.create({
             id: 'GitLookup',
-            title: 'GitHub Csound Doc Search',
+            title: '* GitHub Csound Doc Search',
+            type: 'normal',
+            contexts: ['selection']
+        });
+     chrome.contextMenus.create({
+            id: 'PlayableLookup',
+            title: '* Csound Playable Doc Search',
             type: 'normal',
             contexts: ['selection']
         });
@@ -55,11 +61,32 @@ chrome.runtime.onInstalled.addListener(function() {
             title: 'Csound Opcode QuickRef',
             type: 'normal'
         });
+        chrome.contextMenus.create({
+            id: 'CsIDE No Selection',
+            title: '   Web Csound IDE',
+            type: 'normal'
+        });
+        chrome.contextMenus.create({
+            id: 'GitPlayEdit No Selection',
+            title: '   GitHub Web Player/Editor',
+            type: 'normal'
+        });
+        chrome.contextMenus.create({
+            id: 'CsOnlinePlayer No Selection',
+            title: '   Basic Web Csound Player',
+            type: 'normal'
+        });
+        chrome.contextMenus.create({
+            id: 'CsPlayer&Editor No Selection',
+            title: '   Web Csound Player && Editor',
+            type: 'normal'
+        });
 });
 
 chrome.contextMenus.onClicked.addListener(function(item, tab) {
     let url = '';
     switch(item.menuItemId) {
+
         case 'CsLookup':
             url = 'https://csound.com/docs/manual/' + item.selectionText + '.html';
             break;
@@ -70,6 +97,9 @@ chrome.contextMenus.onClicked.addListener(function(item, tab) {
         case 'GitLookup':
             url = 'https://csound.com/manual/' + item.selectionText + '.html';
             break;
+        case 'PlayableLookup':
+            url = 'https://gogins.github.io/csound-extended-manual/examples/' + item.selectionText + '.csd.html';
+            break;
         case 'CsPlayable Reference':
         case 'CsPlayable Reference No Selection':
             url = 'https://gogins.github.io/csound-extended-manual/indexframes.html';
@@ -78,7 +108,19 @@ chrome.contextMenus.onClicked.addListener(function(item, tab) {
         case 'CsOpcode Reference No Selection':
             url = 'https://csound.com/docs/manual/MiscQuickref.html';
             break;
-    }
+        case 'CsIDE No Selection':
+            url = 'https://IDE.csound.com';
+            break;
+        case 'GitPlayEdit No Selection':
+            url = 'https://gogins.github.io/csound-extended-manual/player.html';
+            break;
+        case 'CsOnlinePlayer No Selection':
+            url = 'http://arthunkins.com/CsOnlinePlayer.html';
+            break;
+        case 'CsPlayer&Editor No Selection':
+            url = 'https://thumbsdb.herokuapp.com/csound/';
+            break;
+   }
 
     chrome.tabs.create({url: url, index: tab.index + 1});
 });
